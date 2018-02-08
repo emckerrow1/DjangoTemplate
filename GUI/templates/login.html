@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-4 col-md-offset-4" style="margin-bottom:10px;">
+		<div class="panel panel-holder">
+		   <div class="panel-body" style="text-align:center">
+			<center>
+				<form method="post" action="{% url 'login' %}">
+					{% csrf_token %}
+
+					<p class="bs-component">
+					Django Login Template<br>
+					{% if form.errors %}
+						<p style="color:red">Your username or password was incorrect. Please try again.</p>
+					{% else %}
+						<br>
+
+					{% endif %}
+
+					{% if next %}
+						{% if user.is_authenticated %}
+							<p style="color:red">Already logged in.</p>
+						{% endif %}
+					{% endif %}
+						<table class="form" style="border:0px;border-collapse:separate;">
+							<tr style="">
+								<td style="text-align:right;">{{ form.username.label_tag }}&nbsp</td>
+								<td>{{ form.username }}</td>
+							</tr>
+							<tr>
+								<td style="text-align:right">{{ form.password.label_tag }}&nbsp</td>
+								<td>{{ form.password }}</td>
+							</tr>
+							<tr>
+								
+								<td colspan="2" style="text-align:center;">
+									<br>
+									<button class="btn btn-primary btn-sm" type="submit">Login <i class="fa fa-sign-in"></i></button>
+								</td>
+							</tr>
+
+						</table>
+					</p>
+					<input type="hidden" name="next" value="{{ next }}" />
+				</form>
+
+				</center>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
